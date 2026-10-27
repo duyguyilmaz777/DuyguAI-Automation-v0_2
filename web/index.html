@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuyguAI Studio & İkizler Masal Durağı — Web Test & Production Studio</title>
+  <meta name="description" content="Gemini tarayıcı otomasyonu ile DuyguAI Studio reklam ve İkizler Masal Durağı okul öncesi eğitici içerik video üretim stüdyosu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-duygu">
+  <div class="app-layout">
+    <!-- Üst Başlık & Durum Çubuğu -->
+    <header class="studio-header">
+      <div class="brand-container">
+        <div class="brand-logo-glow"></div>
+        <div class="brand-icon" id="brandIcon">🎬</div>
+        <div class="brand-info">
+          <h1 class="brand-title" id="appTitle">DuyguAI Studio & İkizler Masal Durağı</h1>
+          <p class="brand-subtitle">Gemini Tarayıcı Otomasyonu & Aşama Aşama Üretim Stüdyosu</p>
+        </div>
+      </div>
+
+      <!-- Proje Seçici Tablar -->
+      <div class="project-switcher" role="tablist">
+        <button type="button" class="project-tab active" id="tabDuygu" onclick="switchProject('DuyguAI Studio')">
+          <span class="tab-icon">🎬</span>
+          <div class="tab-text">
+            <span class="tab-name">DuyguAI Studio</span>
+            <span class="tab-desc">Reklam & UGC Prodüksiyonu</span>
+          </div>
+        </button>
+        <button type="button" class="project-tab" id="tabIkizler" onclick="switchProject('İkizler Masal Durağı')">
+          <span class="tab-icon">🧚‍♀️</span>
+          <div class="tab-text">
+            <span class="tab-name">İkizler Masal Durağı</span>
+            <span class="tab-desc">3D Pixar Çocuk Eğitici İçerik</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Chrome CDP & Sistem Rozeti -->
+      <div class="system-status-chip" id="chromeStatusChip">
+        <span class="status-pulse" id="chromePulse"></span>
+        <div class="chip-content">
+          <span class="chip-title" id="chromeTitle">Chrome CDP Kontrol Ediliyor…</span>
+          <span class="chip-detail" id="chromeDetail">Port 9222</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Ana Çalışma Alanı -->
+    <main class="studio-body">
+      <!-- SOL PANEL: Kontrol ve Test Formu -->
+      <section class="panel control-panel">
+        <div class="panel-header">
+          <div class="panel-title-wrap">
+            <span class="panel-badge">GİRDİ VE TEST PANELİ</span>
+            <h2 class="panel-heading" id="panelHeading">🎬 DuyguAI Studio Kampanya Tanımı</h2>
+          </div>
+          <div class="gem-link-badge">
+            <span class="gem-label">Aktif Gem:</span>
+            <a href="#" target="_blank" id="activeGemLink" class="gem-url-link">Gem Bağlantısı</a>
+          </div>
+        </div>
+
+        <!-- Hızlı Test Şablonları (Presets) -->
+        <div class="presets-section">
+          <span class="presets-label">⚡ Hızlı Test Şablonları:</span>
+          <div class="presets-pills" id="presetsList">
+            <!-- JS tarafından doldurulacak -->
+          </div>
+        </div>
+
+        <form id="workflowForm" class="workflow-form" onsubmit="event.preventDefault();">
+          <!-- Brief Girdisi -->
+          <div class="form-group">
+            <label for="inputBrief" class="form-label">
+              <span>Müşteri Brief'i / Görev Açıklaması:</span>
+              <span class="label-hint" id="briefHint">Reklamı yapılacak ürün, hedef kitle, faydalar</span>
+            </label>
+            <textarea id="inputBrief" rows="3" class="form-textarea" placeholder="Ürün veya konu detaylarını buraya yazın…"></textarea>
+          </div>
+
+          <!-- Hazır Senaryo Girdisi (Opsiyonel) -->
+          <div class="form-group">
+            <label for="inputScenario" class="form-label">
+              <span>Hazır Senaryo (Opsiyonel):</span>
+              <span class="label-hint">Varsa senaryoyu yapıştırın; yoksa Gemini otomatik oluşturur</span>
+            </label>
+            <textarea id="inputScenario" rows="2" class="form-textarea form-textarea-sm" placeholder="Sahne 1: ... Sahne 2: ... (Boş bırakılabilir)"></textarea>
+          </div>
+
+          <!-- İki Kolonlu Parametre Ayarları -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="inputContentType" class="form-label">İçerik Türü:</label>
+              <select id="inputContentType" class="form-select">
+                <option value="ürün reklamı">Ürün Reklamı (Ticari)</option>
+                <option value="çocuk masalı">Çocuk Masalı / Bilmece</option>
+                <option value="kullanıcı deneyimi / ugc">Kullanıcı Deneyimi (UGC)</option>
+                <option value="etkinlik duyurusu">Etkinlik Duyurusu</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputVideoFormat" class="form-label">Video Formatı:</label>
+              <select id="inputVideoFormat" class="form-select">
+                <option value="9:16" selected>9:16 (Reels / TikTok / Shorts)</option>
+                <option value="16:9">16:9 (Yatay YouTube)</option>
+                <option value="1:1">1:1 (Kare Instagram)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputSceneCount" class="form-label">Sahne Sayısı:</label>
+              <div class="number-stepper">
+                <input type="number" id="inputSceneCount" class="form-input" min="1" max="6" value="3">
+                <span class="stepper-unit">Sahne</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputSeconds" class="form-label">Sahne Süresi:</label>
+              <div class="number-stepper">
+                <input type="number" id="inputSeconds" class="form-input" min="3" max="15" value="5">
+                <span class="stepper-unit">Saniye</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seçenekler: Dry Run & Seslendirme -->
+          <div class="options-bar">
+            <label class="toggle-card" for="checkDryRun">
+              <input type="checkbox" id="checkDryRun" checked>
+              <span class="toggle-switch"></span>
+              <div class="toggle-content">
+                <span class="toggle-title">🛡️ Güvenli Test Modu (Dry Run)</span>
+                <span class="toggle-subtitle">Dış istek göndermez, senaryo ve JSON akışını simüle eder</span>
+              </div>
+            </label>
+
+            <label class="toggle-card" for="checkVoiceover">
+              <input type="checkbox" id="checkVoiceover" checked>
+              <span class="toggle-switch"></span>
+              <div class="toggle-content">
+                <span class="toggle-title">🎙️ Türkçe Seslendirme & Diyalog</span>
+                <span class="toggle-subtitle">Diyalog ve anlatım metinlerini oluşturur</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- EYLEM BUTONLARI -->
+          <div class="action-buttons-group">
+            <button type="button" class="btn btn-primary" id="btnRunFull" onclick="startWorkflow('all')">
+              <span class="btn-icon">🚀</span>
+              <span class="btn-text">Tam Akışı Başlat (Senaryo + Görsel + Video)</span>
+            </button>
+
+            <div class="sub-actions-grid">
+              <button type="button" class="btn btn-sub" id="btnRunStage1" onclick="startWorkflow('stage1')" title="Sadece Brief'ten Senaryo ve sahne_plani.json üretir">
+                <span class="btn-icon">📝</span>
+                <span>1. Aşama Test (Senaryo & JSON)</span>
+              </button>
+              <button type="button" class="btn btn-sub" id="btnRunStage2" onclick="startWorkflow('stage2')" title="JSON'dan görsel promptlarını alıp sahne görsellerini üretir">
+                <span class="btn-icon">🎨</span>
+                <span>2. Aşama Test (JSON ➔ Görseller)</span>
+              </button>
+              <button type="button" class="btn btn-danger hidden" id="btnStop" onclick="stopWorkflow()">
+                <span class="btn-icon">🛑</span>
+                <span>Durdur</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- SAĞ PANEL: Canlı İzleme & Sonuç Stüdyosu -->
+      <section class="panel studio-panel">
+        <!-- 4 Aşamalı İlerleme Göstergesi (Stepper) -->
+        <div class="workflow-stepper">
+          <div class="step-node" id="stepNode1">
+            <div class="step-circle">1</div>
+            <div class="step-label">Senaryo & JSON</div>
+          </div>
+          <div class="step-connector" id="stepConn1"></div>
+          <div class="step-node" id="stepNode2">
+            <div class="step-circle">2</div>
+            <div class="step-label">Görseller</div>
+          </div>
+          <div class="step-connector" id="stepConn2"></div>
+          <div class="step-node" id="stepNode3">
+            <div class="step-circle">3</div>
+            <div class="step-label">Videolar</div>
+          </div>
+          <div class="step-connector" id="stepConn3"></div>
+          <div class="step-node" id="stepNode4">
+            <div class="step-circle">4</div>
+            <div class="step-label">Arşiv & Instagram</div>
+          </div>
+        </div>
+
+        <!-- Stüdyo Tab Başlıkları -->
+        <div class="studio-tabs" role="tablist">
+          <button type="button" class="studio-tab active" id="tabViewLogs" onclick="switchStudioTab('logs')">
+            <span>📡 Canlı Günlük & Terminal</span>
+          </button>
+          <button type="button" class="studio-tab" id="tabViewScenario" onclick="switchStudioTab('scenario')">
+            <span>📄 Senaryo & Sahne Planı (JSON)</span>
+          </button>
+          <button type="button" class="studio-tab" id="tabViewGallery" onclick="switchStudioTab('gallery')">
+            <span>🖼️ Üretilen Medya Galerisi</span>
+            <span class="badge-count" id="galleryCount">0</span>
+          </button>
+          <button type="button" class="studio-tab" id="tabViewOutputs" onclick="switchStudioTab('outputs')">
+            <span>📁 Çıktı Klasörleri</span>
+          </button>
+        </div>
+
+        <!-- TAB 1: Canlı Günlük Terminali -->
+        <div class="tab-pane active" id="paneLogs">
+          <div class="terminal-container">
+            <div class="terminal-bar">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title">Otomasyon Canlı Terminali</span>
+              <div class="terminal-actions">
+                <button type="button" class="terminal-btn" onclick="clearLogs()">Temizle</button>
+              </div>
+            </div>
+            <div class="terminal-body" id="terminalLogs">
+              <div class="log-line info">
+                <span class="log-time">[Sistem]</span>
+                <span class="log-text">Studio hazır. Yukarıdaki test butonlarından birine tıklayarak başlayabilirsiniz.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Senaryo & Sahne Planı (JSON) -->
+        <div class="tab-pane" id="paneScenario">
+          <div class="scenario-viewer-container">
+            <div class="sub-tab-bar">
+              <button type="button" class="sub-tab active" id="btnSubJson" onclick="toggleScenarioView('json')">Ayrıştırılmış Sahne Planı (JSON Kartları)</button>
+              <button type="button" class="sub-tab" id="btnSubRaw" onclick="toggleScenarioView('raw')">Ham Senaryo Metni (tam_senaryo.txt)</button>
+            </div>
+            
+            <!-- JSON Sahne Kartları Görünümü -->
+            <div class="scene-cards-list" id="sceneCardsList">
+              <div class="empty-state">
+                <span class="empty-icon">📝</span>
+                <p>Henüz üretilmiş bir senaryo planı yok.<br>Sol panelden <strong>1. Aşama Test</strong> veya <strong>Tam Akışı Başlat</strong> butonuna tıklayın.</p>
+              </div>
+            </div>
+
+            <!-- Ham Metin Görünümü -->
+            <pre class="raw-scenario-text hidden" id="rawScenarioText">Henüz senaryo üretilmedi.</pre>
+          </div>
+        </div>
+
+        <!-- TAB 3: Medya Galerisi (Görseller ve Videolar) -->
+        <div class="tab-pane" id="paneGallery">
+          <div class="media-gallery-container">
+            <div class="gallery-toolbar">
+              <span class="gallery-title" id="galleryFolderTitle">Aktif Üretim Çıktıları</span>
+              <button type="button" class="btn btn-sm btn-outline" id="btnOpenFinder" onclick="openCurrentFolderInFinder()">
+                📂 Klasörü Finder'da Aç
+              </button>
+            </div>
+
+            <!-- Video Oynatıcı Alanı -->
+            <div class="video-showcase hidden" id="videoShowcase">
+              <h4 class="showcase-title">🎬 Üretilen Tam Video (tam_video.mp4):</h4>
+              <video id="mainVideoPlayer" controls class="video-player"></video>
+            </div>
+
+            <!-- Medya Izgarası -->
+            <div class="media-grid" id="mediaGrid">
+              <div class="empty-state">
+                <span class="empty-icon">🖼️</span>
+                <p>Henüz görsel veya video üretilmedi.<br>Üretim tamamlandığında sahne görselleri ve videoları burada listelenecektir.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: Çıktı Klasörleri Listesi -->
+        <div class="tab-pane" id="paneOutputs">
+          <div class="outputs-list-container">
+            <div class="outputs-table-header">
+              <span>Klasör Adı</span>
+              <span>Tarih</span>
+              <span>Görsel</span>
+              <span>Video</span>
+              <span>İşlem</span>
+            </div>
+            <div class="outputs-table-body" id="outputsList">
+              <!-- JS tarafından doldurulacak -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
