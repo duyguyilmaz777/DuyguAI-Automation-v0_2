@@ -1,0 +1,15 @@
+DuyguAI Automation v0.2 — Hızlı başlangıç
+
+1) ZIP'i açın.
+2) start.command dosyasına çift tıklayın.
+3) Ayarlar sekmesinde kaynak görseller klasörünü seçin.
+4) Gemini Gem URL'sini ve hedef Drive klasör ID'sini kontrol edin.
+5) Chrome'u Başlat düğmesine basın; Google oturumunuz açık olsun.
+6) Bağlantıyı Test Et düğmesi başarılı olduktan sonra Referansları Tara'ya basın.
+7) Prompt'u kontrol edin ve Otomasyonu Başlat'a basın.
+
+Önemli:
+- Uygulama referans görsellerini kaynak klasörünüzden dinamik seçer; dosya adları sabit değildir.
+- Video geçici olarak RAM'de işlenir, yerel video dosyası oluşturulmaz.
+- Chrome'da Google hesabına giriş, güvenlik kontrolü veya izin ekranı çıkarsa bunu kullanıcı tamamlamalıdır.
+- Gemini/Drive arayüzleri değişirse uygulama ilgili adımda durur ve günlükte hata gösterir.

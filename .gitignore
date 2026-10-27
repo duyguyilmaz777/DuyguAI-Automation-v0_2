@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+.venv/
+.venv313/
+.venv_new/
+venv/
+ENV/
+
+# Output directories (videos, images, rendered content)
+outputs/
+logs/
+scratch/
+backups/
+
+# Backup files
+*.backup*
+*.before_*
+*.orig.*
+
+# Job run logs & databases
+jobs/*.db
+jobs/[0-9a-fA-F]*.json
+
+# Testing & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/

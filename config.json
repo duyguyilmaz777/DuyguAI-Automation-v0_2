@@ -1,0 +1,15 @@
+{
+  "dry_run": false,
+  "gem_url_ikizler": "https://gemini.google.com/gem/8e63671e6329",
+  "root_drive_folder": "1vANxhcxl0C65igPzq6tuATygMpwNPE_F",
+  "chrome_debug_url": "http://127.0.0.1:9222",
+  "target_folder_id": "1vANxhcxl0C65igPzq6tuATygMpwNPE_F",
+  "gem_url": "https://gemini.google.com/gem/8e63671e6329",
+  "selected_project": "İkizler Masal Durağı",
+  "chrome_app": "/Applications/Google Chrome.app",
+  "video_timeout_minutes": 20,
+  "max_images": 4,
+  "connect_timeout_ms": 20000,
+  "retry_limit": 2,
+  "gem_url_duygu_ai": "https://gemini.google.com/gem/af11977bbdce"
+}
